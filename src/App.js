@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import UserContext from "./contexts/UserContext"
 import UserToken from "./contexts/UserToken"
+import UserCredentials from "./contexts/UserCredentials"
 import Home from "./Home"
 import Register from "./Register"
 import Habits from "./Habits"
@@ -11,6 +12,7 @@ import { useState } from "react"
 
 export default function App() {
 
+    const [userCredentials,setUserCredentials]=useState({})
     const [tasks,setTasks] =useState([])
     const [token,setToken] =useState("")
 
@@ -20,12 +22,14 @@ export default function App() {
         <BrowserRouter> 
             <UserContext.Provider value={{tasks, setTasks}}>
             <UserToken.Provider value ={{token,setToken}}>
+            <UserCredentials.Provider value ={{UserCredentials,setUserCredentials}}>
             
             <Routes>
             
             <Route path="/" element = {<Home 
-            setToken={setToken}
+            UserCredentials={setUserCredentials}
             />} />
+
             <Route path="/cadastro" element = {<Register />} />
             <Route path ="/habitos" element ={<Habits />} />
             <Route path ="/hoje" element = {<Today />} />
@@ -33,6 +37,7 @@ export default function App() {
 
                     
             </Routes>
+            </UserCredentials.Provider>
             </UserToken.Provider>
             </UserContext.Provider>
             

@@ -3,17 +3,18 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
-import UserToken from "./contexts/UserToken";
 
 
 
-export default function Home(setToken) {
+
+
+export default function Home(setUserCredentials, ) {
 
     const [email, setEmail]= useState("")
     const [password, setPassword] =useState("")
     const [disabled, setDisabled] =useState(false)
     const API="https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
+    const nav = useNavigate()
 
 
     function DisableButtons () {
@@ -23,6 +24,7 @@ export default function Home(setToken) {
 
             function DoLogin () {
             DisableButtons()
+
 
             const body = {
                 email:email,
@@ -34,16 +36,21 @@ export default function Home(setToken) {
                 promise.then(SucessLogin)
                 promise.catch(ErrorLogin)
 
+
                 function SucessLogin (request){
-                    const statusCode= request.status
-
-
-                    setToken=request.data.token
-                    
+                    console.log(request.data)
+                    setUserCredentials={
+                        email:request.data.email,
+                        id:request.data.id,
+                        image:request.data.image,
+                        password:request.data.password,
+                        token:request.data.token                   
+                    }
+                    nav("/habitos")
                 }
 
                 function ErrorLogin (request) {
-                    const statusCode= request.response.status
+                    const statusCode= request.response.data
                     DisableButtons()
                     if (statusCode===422){
                         alert("Insira um usuário ou senha corretos")

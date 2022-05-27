@@ -39,18 +39,18 @@ export default function Register(){
             promise.then(ResolveSucess)
             
             function ResolveSucess(request){
-                const statusCode= request.status
+               // const statusCode= request.status
                 alert("Usuario Cadastrado com Sucess")
-                DisableButtons()
             }
 
             promise.catch(ResolveError)
 
             function ResolveError(request){
-                const statusCode=request.response.status
-                alert("Nao deu certo vc é cabeçudo")
-
                 DisableButtons()
+              //  const statusCode=request.response.status
+
+
+                
                 
             }
 
