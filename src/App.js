@@ -12,24 +12,21 @@ import { useState } from "react"
 
 export default function App() {
 
-    const [userCredentials,setUserCredentials]=useState({})
+    const [userCredentials,setUserCredentials]=useState([])
     const [tasks,setTasks] =useState([])
     const [token,setToken] =useState("")
 
-    console.log(token)
+    console.log(userCredentials)
     return (
 
         <BrowserRouter> 
             <UserContext.Provider value={{tasks, setTasks}}>
             <UserToken.Provider value ={{token,setToken}}>
-            <UserCredentials.Provider value ={{UserCredentials,setUserCredentials}}>
+            <UserCredentials.Provider value ={{userCredentials,setUserCredentials}}>
             
             <Routes>
             
-            <Route path="/" element = {<Home 
-            UserCredentials={setUserCredentials}
-            />} />
-
+            <Route path="/" element = {<Home />} />
             <Route path="/cadastro" element = {<Register />} />
             <Route path ="/habitos" element ={<Habits />} />
             <Route path ="/hoje" element = {<Today />} />

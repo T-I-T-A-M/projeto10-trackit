@@ -1,17 +1,27 @@
 import React, { UserContext } from "react"
 import styled from "styled-components"
-import UserToken from "./contexts/UserToken";
+import { useContext } from "react";
+import UserCredentials from "./contexts/UserCredentials"
+
+
 
 export default function Header(){
 
+    
+    const { userCredentials, setUserCredentials } = useContext(UserCredentials)
+    
+   
+    
 
+
+    
     return (
         <Component>
             <AppName>
             TrackIt
             </AppName>
 
-            <ProfileImage></ProfileImage>
+            <ProfileImage src={userCredentials.image}></ProfileImage>
 
 
         </Component>
@@ -24,6 +34,8 @@ export default function Header(){
 
 
 const Component = styled.div`
+position:sticky;
+top:0px;
 padding: 9px 18px 10px 18px;
 height: 70px;
 background-color: #126BA5;
@@ -42,5 +54,7 @@ cursor:default;
 
 const ProfileImage=styled.img`
 border-radius: 80px;
+width:51px;
+height:51px;
 
 `

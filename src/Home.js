@@ -1,21 +1,21 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import UserCredentials from "./contexts/UserCredentials";
 
 
 
 
+export default function Home() {
 
-export default function Home(setUserCredentials, ) {
-
-    const [email, setEmail]= useState("")
-    const [password, setPassword] =useState("")
+    const [email, setEmail]= useState("picles@picles.com")
+    const [password, setPassword] =useState("picles")
     const [disabled, setDisabled] =useState(false)
     const API="https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login"
     const nav = useNavigate()
-
+    const { setUserCredentials } = useContext(UserCredentials)
 
     function DisableButtons () {
         setDisabled(!disabled)
@@ -38,14 +38,15 @@ export default function Home(setUserCredentials, ) {
 
 
                 function SucessLogin (request){
-                    console.log(request.data)
-                    setUserCredentials={
+                    
+                    setUserCredentials({
                         email:request.data.email,
                         id:request.data.id,
                         image:request.data.image,
                         password:request.data.password,
-                        token:request.data.token                   
-                    }
+                        token:request.data.token }                  
+                    )
+
                     nav("/habitos")
                 }
 
@@ -79,7 +80,7 @@ export default function Home(setUserCredentials, ) {
                 placeholder="email"
                 required
                 disabled={disabled}
-                value={email}
+                value="picles@picles.com"
                 onChange={
                     (e)=> setEmail(e.target.value)
                 }
@@ -91,7 +92,7 @@ export default function Home(setUserCredentials, ) {
                 placeholder="senha"
                 required
                 disabled={disabled}
-                value={password}
+                value="picles"
                 onChange={
                     (e)=> setPassword(e.target.value)
                 }
