@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
-
+import { ThreeDots } from "react-loader-spinner"
 
 export default function Register(){
     
@@ -16,14 +16,14 @@ export default function Register(){
     
 
     function DisableButtons () {
-        setDisabled(!disabled)
+        setDisabled(true)
     }
 
 
     function DoRegister (event) {
 
         console.log("registrando")
-        DisableButtons()
+        setDisabled(true)
 
         const RegisterData = {
             email: registerEmail,
@@ -46,7 +46,7 @@ export default function Register(){
             promise.catch(ResolveError)
 
             function ResolveError(request){
-                DisableButtons()
+                setDisabled(false)
               //  const statusCode=request.response.status
 
 
@@ -67,7 +67,7 @@ export default function Register(){
             TrackIt
             </AppName>
 
-            <RegisterForm onSubmit={DoRegister}>
+            <RegisterForm onSubmit={DoRegister} disabled={disabled}>
                 <RegisterEmail 
                 placeholder="email"
                 type ="email"
@@ -117,7 +117,7 @@ export default function Register(){
                 disabled={disabled}
                 onClick={ () => DoRegister()}
                 
-                >Cadastrar</CreateAccountButton>
+                >{disabled ? <ThreeDots height="80" width="80" color="#FFFFFF"/>  : "Cadastrar" }  </CreateAccountButton>
 
             </RegisterForm>
 
