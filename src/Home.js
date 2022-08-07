@@ -46,6 +46,8 @@ export default function Home() {
                         password:request.data.password,
                         token:request.data.token }                  
                     )
+                    
+
 
                     nav("/habitos")
                 }

@@ -20,7 +20,6 @@ export default function WeekdayBoxes ( { setChoosenWeekday }) {
             setSelectedIdDays([...selectedIdDays,index])}
         
             setChoosenWeekday=selectedIdDays
-            console.log(setChoosenWeekday)
     }
 
 

@@ -1,14 +1,14 @@
-import React, { UserContext } from "react"
+import React from "react"
 import styled from "styled-components"
 import { useContext } from "react";
 import UserCredentials from "./contexts/UserCredentials"
-
+import { Link } from "react-router-dom"
 
 
 export default function Header(){
 
     
-    const { userCredentials, setUserCredentials } = useContext(UserCredentials)
+    const { userCredentials} = useContext(UserCredentials)
     
    
     
@@ -17,9 +17,11 @@ export default function Header(){
     
     return (
         <Component>
+            <Link to ="/" style={{ textDecoration: 'none' }}>
             <AppName>
             TrackIt
             </AppName>
+            </Link>
 
             <ProfileImage src={userCredentials.image}></ProfileImage>
 

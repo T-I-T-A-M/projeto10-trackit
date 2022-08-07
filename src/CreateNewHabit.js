@@ -1,24 +1,91 @@
-import React, {useState} from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
-import WeekdayBoxes from "./WeekdayBoxes";
 import UserCredentials from "./contexts/UserCredentials"
+import axios from "axios";
+
 
 
 export default function CreateNewHabit ({setShowCreateNewHabit}) {
 
-    const [selectedWeekday,setSelectedWeekday] = useState(false)
     const [choosenWeekday, setChoosenWeekday] =useState([])
-    const [NewHabitName, setNewHabitName] = useState("")
+    const [newHabitName, setNewHabitName] = useState("")
+ 
+    const { userCredentials } = useContext(UserCredentials)
+    const API  = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits"
+    const token = userCredentials.token
+
+    const days= ["D","S","T","Q","Q","S","S"]
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const body = {
+        name:  newHabitName,
+        days:  choosenWeekday
+    }
+
+    console.log("Reredenderizei os create newHabit")
+
+    function NewHabit () {
+    
+    
+    const promise = axios.post(API, body, config)
+
+    promise.then(() => {setShowCreateNewHabit(false)})
+
+    promise.catch( () => {alert("Não foi possível cadastrar o hábito")})
+
+
+    }
+
+    function SelectDay (day) {
+
+        if (choosenWeekday.find (element =>element===day)){
+            const array = choosenWeekday.filter(element => element !==day)
+
+            return setChoosenWeekday(array)
+        }
+        else
+        setChoosenWeekday([...choosenWeekday,day])
+    }
 
 
 
-    console.log(choosenWeekday)
+
+
+    const BuildWeekdayBoxes = days.map( (days,index) =>
+    <WeekdayBox
+    key={index}
+    id={index}
+    day={days}
+    color={choosenWeekday.includes(index) ? "#FFFFFF" : "#CFCFCF"}
+    backgroundColor={choosenWeekday.includes(index) ? "#CFCFCF" : "#FFFFFF"}
+    onClick={() => SelectDay(index)}
+    >{days}</WeekdayBox>
+)
+
+
+
+
+
+
+
+
+
 
 
     return (
+
+        <form>
         <Container>
             
             <NewHabitNameInput 
+            required
+            type = "text"
+            value={newHabitName}
             placeholder="nome do hábito" 
             onChange={
                     e=> setNewHabitName(e.target.value)}>
@@ -27,20 +94,18 @@ export default function CreateNewHabit ({setShowCreateNewHabit}) {
 
             <ChooseWeekdayBox>
 
-                <WeekdayBoxes
-                setChoosenWeekday={setChoosenWeekday}
-                />
+                {BuildWeekdayBoxes}
 
             </ChooseWeekdayBox>
             
             <SaveorCancelBox>
                 <Cancel onClick={() => setShowCreateNewHabit(false)}>Cancelar</Cancel>
-                <Save>Salvar</Save>
+                <Save onClick = {() => NewHabit() }>Salvar</Save>
             </SaveorCancelBox>
 
 
         </Container>
-
+        </form>
 
 
 
@@ -74,6 +139,19 @@ height:30px;
 display:flex;
 justify-content: space-between;
 align-items: center;
+`
+
+const WeekdayBox = styled.div`
+box-sizing: border-box;
+display:flex;
+justify-content: center;
+width:24px;
+align-items: center;
+padding: 2px 3px 2px 4px;
+border:solid 1px #D4D4D4;
+border-radius:5px;
+color: ${ (props) => props.color  };
+background-color: ${ (props) =>  props.backgroundColor };
 `
 
 

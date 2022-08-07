@@ -42,6 +42,8 @@ background-color: #FFFFFF;
 display:flex;
 align-items: center;
 justify-content: space-around;
+position: sticky;
+bottom:0px;
 `
 
 const HabitsButton = styled.div `

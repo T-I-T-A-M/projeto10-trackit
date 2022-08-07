@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import axios from "axios"
-import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner"
 
 export default function Register(){
@@ -15,9 +14,9 @@ export default function Register(){
     const API="https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up"
     
 
-    function DisableButtons () {
+/*     function DisableButtons () {
         setDisabled(true)
-    }
+    } */
 
 
     function DoRegister (event) {
