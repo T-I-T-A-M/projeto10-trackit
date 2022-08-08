@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import UserCredentials from "./contexts/UserCredentials"
 import axios from "axios";

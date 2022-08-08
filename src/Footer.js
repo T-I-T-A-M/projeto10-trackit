@@ -16,7 +16,9 @@ export default function Footer(){
                 </HabitsButton>
             </Link>
 
+            <Link to="/hoje" style={{ textDecoration: 'none' }}>
             <p> Coisa de tracking</p>
+            </Link>
 
             <Link to="/historico" style={{ textDecoration: 'none' }}>
                 <HistoryButton>

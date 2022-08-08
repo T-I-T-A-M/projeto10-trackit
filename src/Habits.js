@@ -24,6 +24,7 @@ export default function Habits(){
     }
     
     function HandleError(){
+        alert ("Sua sessão experiou")
         nav("/")
     }
     
